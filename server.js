@@ -37,7 +37,6 @@ app.use(express.json());
 //middleware for cookies
 app.use(cookieParser());
 
-
 //serve static
 app.use(express.static(path.join(__dirname,'/public')));
 app.use('/subdir',express.static(path.join(__dirname,'/public')));

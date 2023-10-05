@@ -1,0 +1,1 @@
+2023/08/27	17:02:19	30496245-41d8-45df-b339-0ac2b404d319	Error: Nije dozvoljeno od strane CORS

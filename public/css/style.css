@@ -1,0 +1,104 @@
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    font-size: 1.3rem;
+    font-family: sans-serif, Arial, Helvetica;
+    background-image: linear-gradient(#fff7eb, #ffffff);
+    color: #000000;
+    margin: 0;
+}
+
+main {
+    margin: 10px;
+}
+
+header {
+    text-align: center;
+}
+
+h1 {
+    font-size: 2.8rem;
+    border: #000000 dashed;
+    display: inline-block;
+    padding: 10px 20px 5px 20px;
+}
+
+nav {
+    border: solid;
+    border-radius: 2rem;
+    background-color: seashell;
+    width: fit-content;
+    margin: auto;
+}
+
+header p {
+    display:inline-block;
+    margin-inline: 1rem;
+    min-width:120px;
+    text-align: center;
+}
+
+header a, header a:visited {
+    color: #000000;
+}
+
+header a:hover {
+    background-color: black;
+    color: seashell;
+    display:inline-block;
+}
+
+header a:active {
+    background-color: black;
+    color: seashell;
+    display:inline-block;
+}
+
+header a:hover:first-child {
+    border-radius: 1.7rem 0 0 1.7rem;
+}
+
+header a:hover:last-child {
+    border-radius: 0 1.7rem 1.7rem 0;
+}
+
+p {
+    line-height: 1.3;
+}
+
+.container {
+    font-size: 2.5rem;
+    border: 2px dashed #a50000;
+/*     margin-top: 1.5rem;
+    margin-right: 1.5rem;
+    margin-bottom: 2.5rem; */
+    margin: 1em 2.5em;
+    padding: 0.6em;
+
+}
+
+.float_left {
+    float: left;
+    margin-right: 1rem ;
+}
+
+.float_right{
+    float:right;
+    margin-left: 1rem;
+}
+
+.obavijac {
+    background-color: rgb(252, 227, 195);
+    border: rgb(202, 190, 174) solid ;
+    border-radius: 10px;
+    display: flow-root;
+    margin-top: 10px;
+    padding: 10px;
+}
+
+
+.centriraj{
+    text-align: center;
+}

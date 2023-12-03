@@ -4,6 +4,7 @@ const jwt = require("jsonwebtoken");
 
 const handleRefreshToken = async (req, res) => {
   const cookies = req.cookies;
+
   if (!cookies?.jwt) {
     return res.sendStatus(401);
   }
@@ -24,7 +25,6 @@ const handleRefreshToken = async (req, res) => {
         }).exec();
         hackedUser.refreshToken = [];
         const result = await hackedUser.save();
-        console.log(result);
       }
     );
     return res.sendStatus(403);
@@ -56,7 +56,7 @@ const handleRefreshToken = async (req, res) => {
           },
         },
         `${process.env.ACCESS_TOKEN_SECRET}`,
-        { expiresIn: "30s" }
+        { expiresIn: "30m" }
       );
 
       const newRefreshToken = jwt.sign(
@@ -74,7 +74,7 @@ const handleRefreshToken = async (req, res) => {
         maxAge: 24 * 60 * 60 * 1000,
       });
 
-      res.json({ roles, accessToken });
+      res.json({ accessToken });
     }
   );
 };

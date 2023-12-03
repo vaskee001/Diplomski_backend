@@ -17,7 +17,7 @@ const handleLogin = async (req, res) => {
   // evaluate password
   const match = await bcrypt.compare(pwd, foundUser.password);
   if (match) {
-    const roles = Object.values(foundUser.roles);
+    const roles = Object.values(foundUser.roles).filter(Boolean);
     // create JWT
     const accessToken = jwt.sign(
       {
@@ -27,7 +27,7 @@ const handleLogin = async (req, res) => {
         },
       },
       `${process.env.ACCESS_TOKEN_SECRET}`,
-      { expiresIn: "30s" }
+      { expiresIn: "30m" }
     );
     // Saving refreshToken with current user
     const newRefreshToken = jwt.sign(

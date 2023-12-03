@@ -54,6 +54,7 @@ app.use('/logout',require('./routes/logout'));
 //Routes that need verifyJWT
 app.use(verifyJWT);
 app.use('/employees', require('./routes/api/employees'));
+app.use('/users', require('./routes/api/users'));
 
 app.all('/*',(req,res)=>{
   res.status(404);

@@ -11,4 +11,7 @@ router.route('/')
 router.route('/:id')
     .get(verifyRoles(ROLES_LIST.User), usersController.getUser);
 
+    // router.route('/:selectedGroup/notparticipants')
+    // .get(verifyRoles(ROLES_LIST.User), usersController.getAllUsersNotInGroup);
+
 module.exports = router;

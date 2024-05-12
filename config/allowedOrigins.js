@@ -3,7 +3,8 @@ const allowedOrigins = [
   "http://localhost:3500",
   "http://localhost:3000",
   "http://192.168.8.100:3000",
-  "http://192.168.8.100:3500"
+  "http://192.168.8.100:3500",
+  "https://diplomski-frontend.vercel.app"
 ];
 
 module.exports = allowedOrigins;

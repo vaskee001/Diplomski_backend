@@ -53,18 +53,22 @@ app.use('/logout',require('./routes/logout'));
 let rustProcess;
 let rustOutput = '';
 
+
 function createRustProcess() {
   // Replace with the path to your Rust executable
   rustProcess = spawn('./target/release/cli.exe', { stdio: 'pipe' });
 
   rustProcess.stdout.on('data', (data) => {
-    console.log('Rust Output:', data.toString().trim());
-    rustOutput = data.toString().trim();
-    // You can emit this data to clients if you're using WebSocket or another real-time communication method
+    console.log('Rust Output:', data.toString());
+    const outputString = data.toString();
+    if (outputString.includes("New messages")) {
+      rustOutput = outputString; // Update rustOutput only when "New messages" is present
+    }
   });
 
   rustProcess.stderr.on('data', (data) => {
     console.error('Rust Error:', data.toString());
+    rustOutput = data.toString().trim();
     // You can emit this error to clients if you're using WebSocket or another real-time communication method
   });
 
@@ -78,6 +82,29 @@ createRustProcess();
 app.get('/start-rust', (req, res) => {
   createRustProcess();
   res.send('Rust process started');
+});
+
+// Endpoint to exit the Rust process
+app.post('/exit-rust', (req, res) => {
+  if (rustProcess) {
+      rustProcess.kill('SIGINT'); // Send SIGINT signal to gracefully exit the process
+      rustProcess = null; // Reset the rustProcess variable
+      res.send('Rust process exited');
+  } else {
+      res.status(500).send('Rust process not started');
+  }
+});
+
+// Endpoint to restart the Rust process
+app.post('/restart-rust', (req, res) => {
+  // First, exit the existing Rust process if it's running
+  if (rustProcess) {
+      rustProcess.kill('SIGINT');
+      rustProcess = null;
+  }
+  // Then, start a new Rust process
+  createRustProcess();
+  res.send('Rust process restarted');
 });
 
 // Route to send commands to the Rust process
@@ -96,12 +123,15 @@ app.post('/send-command', express.json(), (req, res) => {
 app.get('/rust-output', (req, res) => {
   // Send the rustOutput variable as the response
   res.send(rustOutput);
+  
+  rustOutput = "Updated data";
 });
-
 
 
 //Routes that need verifyJWT
 app.use(verifyJWT);
+app.use('/groups', require('./routes/api/groups'));
+app.use('/groupsparticipants', require('./routes/api/groupsParticipants'));
 app.use('/users', require('./routes/api/users'));
 
 app.all('/*',(req,res)=>{
